@@ -28,5 +28,5 @@ echo localhost > /usr/local/etc/ansible/hosts
 ## Run
 
 ```
-ansible-playbook android-developer.yml
+ansible-playbook localhost.yml
 ```

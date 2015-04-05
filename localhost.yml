@@ -6,7 +6,7 @@
   gather_facts: yes
   tasks:
     - name: check software update
-      shell: softwareupdate --list
+      command: softwareupdate --list
       register: result
       changed_when: false
       always_run: yes
@@ -18,7 +18,7 @@
     - name: brew update & upgrade
       homebrew: update_homebrew=yes upgrade_all=yes
 
-    - homebrew: name={{ item }}
+    - homebrew: name={{ item }} state=latest
       with_items:
         - android-sdk
         - cmake
