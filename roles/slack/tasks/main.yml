@@ -1,0 +1,9 @@
+---
+
+- name: brew cask install slack
+  homebrew_cask: name=slack
+  when: ansible_distribution == 'MacOSX'
+
+- name: apt-get install slack
+  apt: name=slack
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
