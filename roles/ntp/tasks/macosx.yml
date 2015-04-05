@@ -1,0 +1,22 @@
+---
+# This playbook configures NTP (Network Time Protocol).
+# see - http://www.baru-san.net/archives/246
+
+- name: brew tap barusan/app
+  homebrew_tap: tap=barusan/app
+
+- name: brew install ntp-dev
+  homebrew: name=ntp-dev
+
+- name: /usr/sbin/ntpd -> /usr/local/sbin/ntpd
+  command: sed “s#/usr/sbin/ntpd#/usr/local/sbin/ntpd#g” /usr/libexec/ntpd-wrapper
+
+#- name: NTP クライアントを設定します
+#  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+#    owner=root group=root mode=0644
+
+- name: ntpd 停止
+  command: launchctl unload -w /System/Library/LaunchDaemons/org.ntp.ntpd.plist
+
+- name: ntpd 開始
+  command: launchctl load -w /System/Library/LaunchDaemons/org.ntp.ntpd.plist

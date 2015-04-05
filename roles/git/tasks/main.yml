@@ -1,0 +1,32 @@
+---
+
+- include: macosx.yml
+  when: ansible_distribution == 'MacOSX'
+
+- name: version
+  command: git --version
+  changed_when: false
+  always_run: yes
+
+- name: config get core.autocrlf
+  command: git config --global --get core.autocrlf
+  register: result
+  changed_when: false
+  always_run: yes
+  ignore_errors: yes
+
+- name: config core.autocrlf false
+  command: git config --global core.autocrlf false
+  when: result.stdout != 'false'
+
+- name: config get http.sslVerify
+  command: git config --global --get http.sslVerify
+  register: result
+  changed_when: false
+  always_run: yes
+  ignore_errors: yes
+
+- name: config http.sslVerify false
+  command: git config --global http.sslVerify false
+  when: result.stdout != 'false'
+

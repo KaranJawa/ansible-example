@@ -1,0 +1,13 @@
+- name: install
+  homebrew_cask: name=boot2docker
+
+- name: which docker-compose
+  command: which docker-compose
+  register: result
+  changed_when: false
+  always_run: yes
+  ignore_errors: yes
+
+- name: install docker-compose
+  command: curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+  when: result.stdout == ''

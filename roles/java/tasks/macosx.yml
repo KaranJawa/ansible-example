@@ -1,0 +1,6 @@
+---
+
+- name: install
+  homebrew_cask: name=java
+
+# export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

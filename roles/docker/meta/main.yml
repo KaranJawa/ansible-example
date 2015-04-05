@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: virtualbox
+    when: ansible_distribution == 'MacOSX'

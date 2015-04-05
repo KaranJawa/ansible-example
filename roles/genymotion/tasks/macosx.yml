@@ -1,0 +1,2 @@
+- name: install
+  homebrew_cask: name=genymotion
