@@ -1,0 +1,14 @@
+- hosts: localhost
+  connection: local
+  sudo: no
+  gather_facts: yes
+  roles:
+    - git
+    - sourcetree
+    - google-chrome
+    - maven
+    - gradle
+    - android-studio
+    - genymotion
+    - docker
+    - intellij
