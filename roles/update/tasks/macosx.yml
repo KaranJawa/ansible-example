@@ -1,0 +1,13 @@
+
+- name: check software update
+  shell: softwareupdate --list
+  register: result
+  changed_when: false
+  always_run: yes
+
+- name: Software update
+  command: softwareupdate --install -all
+  when: result.stderr != 'No new software available.'
+
+- name: brew update & upgrade
+  homebrew: update_homebrew=yes upgrade_all=yes
