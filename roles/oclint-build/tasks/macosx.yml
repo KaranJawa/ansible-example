@@ -1,0 +1,7 @@
+- name: install
+  homebrew: name={{ item }}
+  with_items:
+    - python
+    - git
+    - subversion
+    - cmake
