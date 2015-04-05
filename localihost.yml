@@ -1,0 +1,46 @@
+# Mac にインストールするだけなら以下のようにシンプルに書ける (role 見ないパターン)
+
+- hosts: localhost
+  connection: local
+  sudo: no
+  gather_facts: yes
+  tasks:
+    - name: check software update
+      shell: softwareupdate --list
+      register: result
+      changed_when: false
+      always_run: yes
+
+    - name: software update
+      command: softwareupdate --install -all
+      when: result.stderr != 'No new software available.'
+
+    - name: brew update & upgrade
+      homebrew: update_homebrew=yes upgrade_all=yes
+
+    - homebrew: name={{ item }}
+      with_items:
+        - android-sdk
+        - cmake
+        - git
+        - gradle
+        - maven
+        - python
+        - subversion
+
+    - homebrew_cask: name={{ item }}
+      with_items:
+        - android-studio
+        - boot2docker
+        - google-chrome
+        - genymotion
+        - intellij-idea-ce
+        - java
+        - slack
+        - sophos-anti-virus-home-edition
+        - sourcetree
+        - virtualbox
+
+    - gem: name={{ item }} state=latest
+      with_items:
+        - cocoapods
