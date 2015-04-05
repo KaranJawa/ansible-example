@@ -1,0 +1,4 @@
+---
+
+- name: restart snmpd
+  command: launchctl load -w /System/Library/LaunchDaemons/org.net-snmp.snmpd.plist

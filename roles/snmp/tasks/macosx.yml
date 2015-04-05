@@ -1,0 +1,8 @@
+
+
+- name: config /etc/snmp/snmpd.conf
+  template: src="templates/snmpd.conf.j2" dest=/etc/snmp/snmpd.conf owner=root group=wheel mode=0644
+
+- name: start snmpd service
+  command: launchctl load -w /System/Library/LaunchDaemons/org.net-snmp.snmpd.plist
+  notify: restart snmpd
