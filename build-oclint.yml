@@ -1,0 +1,22 @@
+- hosts: localhost
+  connection: local
+  sudo: no
+  gather_facts: no
+  tasks:
+    - homebrew: name={{ item }}
+      with_items:
+        - python
+        - git
+        - subversion
+        - cmake
+
+    - git: repo=https://github.com/oclint/oclint.git
+           dest=oclint
+
+    - command: ./make
+      args:
+        chdir: oclint/oclint-scripts
+
+    - shell: find oclint/build -name "oclint-*" -type d | xargs -J% mv % /opt/oclint
+
+    - command: rm -rf oclint
